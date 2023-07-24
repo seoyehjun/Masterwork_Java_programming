@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-13">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="GraphicEditor_4/GraphicEditor.java|derived_4/Circle.java|base_4/Shape.java|lib/Calc.java|app/Mainapp.java|Circle_384.java|Histogram.java|word_break_2.java|time_now.java|word_break.java|Predict_second.java|text_spin.java" kind="src" path="src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

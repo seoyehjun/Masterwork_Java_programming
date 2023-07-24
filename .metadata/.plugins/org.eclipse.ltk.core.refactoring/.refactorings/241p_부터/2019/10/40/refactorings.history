@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Copy element &apos;Bear_Fish.java&apos; to &apos;DivideByZero.java&apos;&#x0D;&#x0A;- Original project: &apos;241p_부터&apos;&#x0D;&#x0A;- Destination element: &apos;DivideByZero.java&apos;&#x0D;&#x0A;- Original element: &apos;Bear_Fish.java&apos;" description="Copy compilation unit" destination="=째민스/src&lt;{DivideByZero.java" element1="/src&lt;{Bear_Fish.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1570002041156" units="1" version="1.0"/>
+</session>

@@ -1,0 +1,73 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+
+public class num3_client extends JFrame
+{
+	BufferedReader in = null;
+	BufferedWriter out = null;
+	Socket socket = null;
+	JTextField num1,sign,num2,num3;
+	JButton launch= new JButton("계산");
+	
+	public num3_client()
+	{
+		setTitle("계산 클라이언트");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+		Container c = getContentPane();
+		c.setLayout(new FlowLayout());
+		
+		try
+		{
+			setup();
+		}
+		catch(IOException e)
+		{
+			System.out.print("연결오류");
+			System.exit(1);
+		}
+		
+		launch.addActionListener(new ActionListener() {//계산버튼
+			public void actionPerformed(ActionEvent e)
+			{
+				try 
+				{
+					out.write(num1.getText()+"\n");
+					out.write(sign.getText()+"\n");
+					out.write(num2.getText()+"\n");
+					out.flush();
+					
+					num3.setText(in.readLine());// 결과 표시
+				}
+				catch (IOException e1) 
+				{
+					System.out.print("연결오류 client 버튼 ");
+					System.exit(1);
+				}
+			}
+		});
+		
+		c.add(num1);
+		c.add(sign);
+		c.add(num2);
+		c.add(new JLabel("="));
+		c.add(num3);
+		c.add(launch);
+		
+		setVisible(true);
+		setSize(300,300);
+	}
+	private void setup() throws IOException 
+	{
+		socket = new Socket("localhost",8000);
+		System.out.print("서버와 연결됨...");
+		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+	}
+	public static void main(String [] args)
+	{
+		new num3_client();
+	}
+}

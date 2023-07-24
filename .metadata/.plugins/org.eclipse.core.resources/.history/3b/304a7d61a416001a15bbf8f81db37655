@@ -1,0 +1,39 @@
+import java.io.*;
+import java.net.*;
+
+public class num1_server 
+{
+	private static BufferedReader in = null;
+	private static Socket socket = null;
+	private static ServerSocket ssocket = null;
+	
+	public static void main(String[] args) 
+	{
+		try 
+		{
+			ssocket = new ServerSocket(9999);
+			socket = ssocket.accept();
+			
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		} 
+		catch (IOException e) 
+		{
+			System.out.print("연결 오류");
+			System.exit(1);
+		}
+		
+		while(true)
+		{
+			String msg = null; 
+			try 
+			{
+				msg = in.readLine();
+				System.out.print("\n... "+msg);
+			} 
+			catch (IOException e1) 
+			{
+				e1.printStackTrace();
+			}
+		}
+	}
+}

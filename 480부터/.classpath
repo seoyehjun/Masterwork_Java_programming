@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-13">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="hangman.java|SavetoFile.java|Read_file.java|SmalltoBig.java|IsSame.java|Appended.java|Copy.java|Find_maxfile.java|delet_txt.java|phone_num.java|Find_pattern.java|Find_word.java|File_find.java|File_find_add.java" kind="src" path="src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

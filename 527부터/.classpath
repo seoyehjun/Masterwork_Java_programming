@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-13">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="렛츠스터디자바.java|Rainbow.java|Grid_rainbow.java|JLabel_test.java|OpenChallenge.java|num7.java|num8.java" kind="src" path="src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

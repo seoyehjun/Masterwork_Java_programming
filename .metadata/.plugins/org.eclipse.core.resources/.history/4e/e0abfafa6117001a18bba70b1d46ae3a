@@ -1,0 +1,117 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.io.*;
+import java.net.*;
+import java.util.StringTokenizer;
+
+public class num3_server extends JFrame
+{
+	Receiver receiver = new Receiver();
+	BufferedReader in = null;
+	BufferedWriter out = null;
+	Socket socket = null;
+	ServerSocket ssocket = null;
+	Boolean formulastate = true;
+	
+	public num3_server()
+	{
+		setTitle("계산 클라이언트");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
+		Container c = getContentPane();
+		c.setLayout(new BorderLayout());
+		
+		try
+		{
+			setup();
+		}
+		catch(IOException e)
+		{
+			System.out.print("연결 오류");
+			System.exit(1);
+		}
+		c.add(receiver,BorderLayout.CENTER);
+		
+		setVisible(true);
+		setSize(300,300);
+		
+		Thread th = new Thread(receiver);
+		th.start();
+	}
+	
+	private void setup() throws IOException
+	{
+		ssocket = new ServerSocket(8000);
+		socket = ssocket.accept();// 클라이언트 대기
+		System.out.println("클라이언트와 연결됨..");
+		in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+		out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+	}
+	
+	class Receiver extends JTextArea implements Runnable
+	{
+		public void run()
+		{
+			while(true)
+			{
+				String num1, sign, num2;// 첫째숫자, 연산기호, 둘째숫자
+				try
+				{
+					StringTokenizer formula = new StringTokenizer(in.readLine()," ");// 한개의 수식을 받는다 숫자와 연산기호간에 " "(공백)을 하나 붙여서 전송해줘야함
+					num1 = formula.nextToken();
+					sign = formula.nextToken();
+					num2 = formula.nextToken();
+					
+					double result = calc(num1,sign,num2);// 계산결과를 실수로 받는다.
+					
+					if(formulastate == true)
+						out.write(result + "\n");// 받을때 readLine으로 받으니 ---> \n 붙여준다
+					else//식이 잘못됐을때
+						out.write("잘못된 연산 \n");
+					out.flush();//이거 왜쓰니?
+					
+					//서버창에 띄우기
+					int pos = receiver.getText().length();
+					receiver.setCaretPosition(pos);
+					if(formulastate==true)
+						receiver.append(num1+sign+num2+" = "+result+"\n");
+					else//식이 잘못됐을때
+						receiver.append(num1+sign+num2+"는 잘못된 연산\n");
+				}
+				catch(IOException e)
+				{
+					System.out.print("연결오류");
+					System.exit(1);
+				}
+			}
+		}
+	}
+	private double calc (String num1,String sign,String num2)
+	{
+		int isexist = 0;
+		switch(sign)
+		{
+			case "+":
+				isexist++;
+				return Double.parseDouble(num1) + Double.parseDouble(num2);
+			case "-":
+				isexist++;
+				return Double.parseDouble(num1) - Double.parseDouble(num2);
+			case "*":
+				isexist++;
+				return Double.parseDouble(num1) * Double.parseDouble(num2);
+			case "/":
+				isexist++;
+				return Double.parseDouble(num1) / Double.parseDouble(num2);
+			default:
+				if(isexist == 1)formulastate = true;
+				else formulastate = false;
+							
+		}	
+		return -1;//임의로 주기위한 반환값(안쓰면 오류)
+	}
+	public static void main(String[] args) 
+	{
+		new num3_server();
+	}
+}

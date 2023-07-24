@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/jdk-13">
+		<attributes>
+			<attribute name="module" value="true"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry excluding="rems_checkbox.java|실험용/checkbox.java|radiobutton.java|rem_ram_puck.java|checkbox.java|textfield.java|TA.java|lis.java|resetList.java|combobo.java|제이슬라이더.java|action_combo.java|예제용.java|research.java" kind="src" path="src"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

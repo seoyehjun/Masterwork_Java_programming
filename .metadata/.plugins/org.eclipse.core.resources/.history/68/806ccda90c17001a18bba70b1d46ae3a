@@ -1,0 +1,55 @@
+import java.io.*;
+import java.net.*;
+import java.util.*;
+
+public class num2_client 
+{
+	public static void main(String[] args) 
+	{
+		BufferedReader in = null;
+		Socket socket = null;
+		
+		try
+		{
+			socket = new Socket("localhost",9999);//서버 연결요청
+			System.out.print("서버에 접속하였습니다...");
+			in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			 
+		}
+		catch(IOException e)
+		{
+			System.out.print("연결오류");
+			System.exit(1);
+		}
+		Thread th = new Thread(new Read(in));
+		th.start();
+	}
+	
+	static class Read extends Thread
+	{
+		BufferedReader temp;
+		public Read(BufferedReader temp)
+		{
+			this.temp = temp;
+		}
+		public void run()
+		{
+			while(true)
+			{
+				String count = "sdffkse";
+				System.out.print("서버의 시간");
+				try
+				{
+					count = temp.readLine();//서버에서 잃어오기
+					System.out.print(count+" ");
+				}
+				catch(IOException e)
+				{
+					System.out.print("연결오류");
+					System.exit(1);
+				}
+				if(count.equals("19") == true)break;
+			}
+		}
+	}
+}

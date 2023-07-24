@@ -1,0 +1,58 @@
+import java.net.*;
+import java.io.*;
+import java.util.*;
+
+public class num2_server 
+{
+	public static void main(String[] args) 
+	{
+		System.out.print("타임서버입니다.");
+		ServerSocket ssocket = null;
+		Socket socket = null;
+		BufferedWriter out = null;
+		
+		try 
+		{
+			ssocket = new ServerSocket(9999);
+			socket = ssocket.accept();//클라이언트 접속 기다림//
+			System.out.print("연결되었습니다...");
+			out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
+		} 
+		catch (IOException e) 
+		{
+			System.out.print("연결오류 2");
+			System.exit(1);
+		}
+		
+		System.out.print("500ms마다 수를 보냅니다.");
+		Thread th = new Thread(new Count(out));
+		th.start();
+	}
+	
+	static class Count extends Thread
+	{
+		BufferedWriter temp = null;
+		public Count(BufferedWriter temp)
+		{
+			this.temp = temp;
+		}
+		public void run()
+		{
+			int count = 0;
+			while(true)
+			{
+				try 
+				{
+					temp.write(Integer.toString(count)+"\n");
+					sleep(500);
+					count++;
+				}
+				catch(InterruptedException | IOException e)
+				{
+					System.out.print("오류 발생");
+					return;
+				}
+			}
+		}
+	}
+}
